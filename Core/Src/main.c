@@ -42,13 +42,18 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
-
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
+#include "formula.h"
 
 uint32_t adc_value[2];
-uint8_t duty = 50 ;
+uint16_t PERIOD_VALUE = 0 ;
+
+uint16_t TIM_SET_PERIOD(uint16_t PERIOD_VALUE){
+	htim1.Init.Period = PERIOD_VALUE;
+	return PERIOD_VALUE;
+}
 
 /* USER CODE END PV */
 
@@ -103,7 +108,7 @@ int main(void)
   HAL_ADC_Start_DMA(&hadc1, adc_value,1);
   HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
 
-  __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,duty);
+  TIM_SET_PERIOD(50000);
 
   /* USER CODE END 2 */
 
@@ -114,6 +119,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	PERIOD_VALUE = CALCULATOR(&adc_value[0]);
+	TIM_SET_PERIOD(PERIOD_VALUE);
   }
   /* USER CODE END 3 */
 }
@@ -137,7 +144,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL8;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -151,7 +158,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -249,7 +256,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 64999;
+  htim1.Init.Period = 47799;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -265,7 +272,7 @@ static void MX_TIM1_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
+  sConfigOC.Pulse = 50;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;

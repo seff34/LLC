@@ -1,0 +1,5 @@
+formula.c:30:8:INTEGRAL_FORMULA	16	static
+formula.c:35:8:Z1_VALUE	16	static
+formula.c:42:8:Z2_VALUE	16	static
+formula.c:49:8:Z3_VALUE	16	static
+formula.c:56:8:CALCULATOR	24	static
