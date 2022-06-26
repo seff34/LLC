@@ -47,7 +47,8 @@ TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
 
-uint32_t adc_value = 0 ;
+uint32_t adc_value[2];
+uint8_t duty = 50 ;
 
 /* USER CODE END PV */
 
@@ -101,6 +102,8 @@ int main(void)
 
   HAL_ADC_Start_DMA(&hadc1, adc_value,1);
   HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
+
+  __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,duty);
 
   /* USER CODE END 2 */
 
