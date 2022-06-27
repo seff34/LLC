@@ -23,6 +23,9 @@ double z3 = 0;
 double y = 0;
 double u = 0;
 
+double kd_dig = 200;
+double kp_dig = 37500;
+
 uint16_t MAX_FREQ_VALUE = 1500 ;
 uint16_t MIN_FREQ_VALUE = 858 ;
 
