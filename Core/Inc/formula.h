@@ -13,6 +13,6 @@
 #include <stdint.h>
 #include <math.h>
 
-double CALCULATOR(uint16_t *ADC_VALUE);
+uint16_t CALCULATOR(uint16_t *ADC_VALUE);
 
 #endif /* INC_FORMULA_H_ */
