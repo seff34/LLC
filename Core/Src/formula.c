@@ -56,9 +56,9 @@ double Z3_VALUE() {
     return z3;
 }
 
-double CALCULATOR(uint16_t *ADC_VALUE){
+uint16_t CALCULATOR(uint16_t *ADC_VALUE){
 
-	double RESPONSE = 0 ;
+	uint16_t RESPONSE = 0 ;
 	z1 = Z1_VALUE();
 	z2 = Z1_VALUE();
 	z3 = Z1_VALUE();
