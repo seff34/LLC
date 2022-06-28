@@ -50,9 +50,9 @@ TIM_HandleTypeDef htim1;
 uint32_t adc_value[2];
 uint16_t period_value = 0 ;
 
-uint16_t TIM_SET_PERIOD(uint16_t PERIOD_VALUE){
-	htim1.Init.Period = PERIOD_VALUE;
-	return PERIOD_VALUE;
+uint16_t TIM_SET_PERIOD(uint16_t *PERIOD_VALUE){
+	htim1.Init.Period = *PERIOD_VALUE;
+	return *PERIOD_VALUE;
 }
 
 /* USER CODE END PV */
@@ -108,8 +108,6 @@ int main(void)
   HAL_ADC_Start_DMA(&hadc1, adc_value,1);
   HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
 
-  TIM_SET_PERIOD(50000);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,7 +118,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     period_value = CALCULATOR(&adc_value);
-	TIM_SET_PERIOD(period_value);
+    mapTimer(&period_value);
+	TIM_SET_PERIOD(&period_value);
 	//DELAY EKLENMELI MI ???????????????????????????????????????????????????????????????????????
   }
   /* USER CODE END 3 */

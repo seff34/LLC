@@ -15,5 +15,6 @@
 
 
 uint16_t CALCULATOR(uint16_t *ADC_VALUE);
+void mapTimer(uint16_t *x);
 
 #endif /* INC_FORMULA_H_ */
